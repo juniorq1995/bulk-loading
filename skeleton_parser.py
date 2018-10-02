@@ -77,18 +77,14 @@ def parseJson(json_file):
     with open(json_file, 'r') as f:
         items = loads(f.read())['Items'] # creates a Python dictionary of Items for the supplied json file
         for item in items:
+            for category in item['Category']:
+                #print category + " | " + item["ItemID"]
+                #write to file using same format
             """
             TODO: traverse the items dictionary to extract information from the
             given `json_file' and generate the necessary .dat files to generate
             the SQL tables based on your relation design
             """
-        import json
-            from pprint import pprint
-
-            with open('data.json') as f:
-                data = json.load(f)
-
-                pprint(data)
             pass
 
 """
