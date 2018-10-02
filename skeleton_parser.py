@@ -88,7 +88,7 @@ def parseJson(json_file):
             # description = "NULL"
             # if item['Description'] != None:
             #     description = item['Description']
-            # itemDataFile.write(item['ItemID'] + "|" + item['Seller']['UserID'] + "|" + item['Currently'] + "|" + item['First_Bid'] + "|" + item['Number_of_Bids'] + "|" + item['Location'] + "|" + item['Country'] + "|" + item['Started'] + "|" + item['Ends'] + "|" + description + "\n")
+            # itemDataFile.write("\"" + item['ItemID'] + "\"|\"" + item['Seller']['UserID'] + "\"|\"" + transformDollar(item['Currently']) + "\"|\"" + transformDollar(item['First_Bid']) + "\"|" + item['Number_of_Bids'] + "|\"" + item['Location'] + "\"|\"" + item['Country'] + "\"|\"" + transformDttm(item['Started']) + "\"|\"" + transformDttm(item['Ends']) + "\"|\"" + description + "\"\n")
 
             """
             Create Categories table
@@ -96,7 +96,7 @@ def parseJson(json_file):
             # Create Categories table
             # for category in item['Category']:
             #     #write to file using same format
-            #     categoryDataFile.write(category + "|" + item["ItemID"]+ "\n")
+            #     categoryDataFile.write("\"" + category + "\"|\"" + item["ItemID"]+ "\"\n")
             #     pass
 
             """
@@ -104,13 +104,13 @@ def parseJson(json_file):
             """
             if item["Bids"] != None:
                 for bid in item["Bids"]:
-                    bidsDataFile.write(bid["Bid"]["Bidder"]["UserID"] + "|" + item["ItemID"] + "|" + transformDollar(bid["Bid"]["Amount"]) + "|" + transformDttm(bid["Bid"]["Time"]) + "\n")
-                    userDataFile.write(bid["Bid"]["Bidder"]["UserID"] + "|" + bid["Bid"]["Bidder"]["Rating"] + "|" + bid["Bid"]["Bidder"].get("Location", "NULL") + "|" + bid["Bid"]["Bidder"].get("Country", "NULL") + "\n")
+                    bidsDataFile.write("\"" + bid["Bid"]["Bidder"]["UserID"] + "\"|\"" + item["ItemID"] + "\"|\"" + transformDollar(bid["Bid"]["Amount"]) + "\"|\"" + transformDttm(bid["Bid"]["Time"]) + "\"\n")
+                    userDataFile.write("\"" + bid["Bid"]["Bidder"]["UserID"] + "\"|" + bid["Bid"]["Bidder"]["Rating"] + "|\"" + bid["Bid"]["Bidder"].get("Location", "NULL") + "\"|\"" + bid["Bid"]["Bidder"].get("Country", "NULL") + "\"\n")
 
             """
             Finish Users table
             """
-            userDataFile.write(item["Seller"]["UserID"] + "|" + item["Seller"]["Rating"] + item["Location"] + "|" + item["Country"] + "\n")
+            userDataFile.write("\"" + item["Seller"]["UserID"] + "\"|" + item["Seller"]["Rating"] + "|\"" + item["Location"] + "\"|\"" + item["Country"] + "\"\n")
 
 """
 Loops through each json files provided on the command line and passes each file
