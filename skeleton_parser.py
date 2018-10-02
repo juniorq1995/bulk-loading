@@ -77,10 +77,17 @@ def parseJson(json_file):
     with open(json_file, 'r') as f:
         items = loads(f.read())['Items'] # creates a Python dictionary of Items for the supplied json file
         categoryDataFile = open("Category.dat","w")
+        itemDataFile = open("Item.dat","w")
+
         for item in items:
+            description = "NULL"
+            if item['Description'] != None:
+                description = item['Description']
+            itemDataFile.write(item['ItemID'] + "|" + item['Seller']['UserID'] + "|" + item['Currently'] + "|" + item['First_Bid'] + "|" + item['Number_of_Bids'] + "|" + item['Location'] + "|" + item['Country'] + "|" + item['Started'] + "|" + item['Ends'] + "|" + description + "\n") # item["Started"] + "|" + item["Ends"] + "|" + item["Description"])
             for category in item['Category']:
                 #write to file using same format
                 categoryDataFile.write(category + "|" + item["ItemID"]+ "\n")
+                pass
                 
             """
             TODO: traverse the items dictionary to extract information from the
