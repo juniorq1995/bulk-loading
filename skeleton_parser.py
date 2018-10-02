@@ -79,6 +79,7 @@ def parseJson(json_file):
         categoryDataFile = open("Category.dat","a")
         itemDataFile = open("Item.txt","a")
         bidsDataFile = open("Bids.txt", "a")
+        userDataFile = open("Users.txt", "a")
 
         for item in items:
             # description = "NULL"
@@ -90,9 +91,12 @@ def parseJson(json_file):
             #     categoryDataFile.write(category + "|" + item["ItemID"]+ "\n")
             #     pass
 
-            if item["Bids"] != None:
-                for bid in item["Bids"]:
-                    bidsDataFile.write(bid["Bid"]["Bidder"]["UserID"] + "|" + item["ItemID"] + "|" + bid["Bid"]["Amount"] + "|" + bid["Bid"]["Time"])
+            # if item["Bids"] != None:
+            #     for bid in item["Bids"]:
+            #         bidsDataFile.write(bid["Bid"]["Bidder"]["UserID"] + "|" + item["ItemID"] + "|" + bid["Bid"]["Amount"] + "|" + bid["Bid"]["Time"])
+            #         userDataFile.write(bid["Bid"]["Bidder"]["UserID"] + "|" + bid["Bid"]["Bidder"]["Rating"] + "|" + bid["Bid"]["Bidder"]["Location"] + "|" + bid["Bid"]["Bidder"]["Country"])
+            #
+            # userDataFile.write(item["Seller"]["UserID"] + "|" + item["Seller"]["Rating"])
 
             """
             TODO: traverse the items dictionary to extract information from the
