@@ -104,31 +104,14 @@ def parseJson(json_file):
             """
             if item["Bids"] != None:
                 for bid in item["Bids"]:
-<<<<<<< HEAD
-                    country = "NULL"
                     if bid["Bid"]["Bidder"]["Country"] != None:
-                        country = bid["Bid"]["Bidder"]["Country"]
                     bidsDataFile.write("\"" + bid["Bid"]["Bidder"]["UserID"] + "\"|\"" + item["ItemID"] + "\"|\"" + transformDollar(bid["Bid"]["Amount"]) + "\"|\"" + transformDttm(bid["Bid"]["Time"]) + "\"\n")
-                    userDataFile.write("\"" + bid["Bid"]["Bidder"]["UserID"] + "\"|" + bid["Bid"]["Bidder"]["Rating"] + "|\"" + bid["Bid"]["Bidder"]["Location"] + "\"|\"" + country + "\"\n")
-=======
-                    bidsDataFile.write(bid["Bid"]["Bidder"]["UserID"] + "|" + item["ItemID"] + "|" + transformDollar(bid["Bid"]["Amount"]) + "|" + transformDttm(bid["Bid"]["Time"]) + "\n")
-                    userDataFile.write(bid["Bid"]["Bidder"]["UserID"] + "|" + bid["Bid"]["Bidder"]["Rating"] + "|" + bid["Bid"]["Bidder"].get("Location", "NULL") + "|" + bid["Bid"]["Bidder"].get("Country", "NULL") + "\n")
->>>>>>> ebd212caccc8d419ec9cba86a3f6a58c1625b67e
+                    userDataFile.write("\"" + bid["Bid"]["Bidder"]["UserID"] + "\"|" + bid["Bid"]["Bidder"]["Rating"] + "|\"" + bid["Bid"]["Bidder"].get("Location", "NULL") + "\"|\"" + bid["Bid"]["Bidder"].get("Country", "NULL") + "\"\n")
 
             """
             Finish Users table
             """
-<<<<<<< HEAD
-            userDataFile.write("\"" + item["Seller"]["UserID"] + "\"|" + item["Seller"]["Rating"] + "|" + "\"NULL\"" + "|" + "\"NULL\"" "\n")
-
-            """
-            TODO: traverse the items dictionary to extract information from the
-            given `json_file' and generate the necessary .dat files to generate
-            the SQL tables based on your relation design
-            """
-=======
-            userDataFile.write(item["Seller"]["UserID"] + "|" + item["Seller"]["Rating"] + item["Location"] + "|" + item["Country"] + "\n")
->>>>>>> ebd212caccc8d419ec9cba86a3f6a58c1625b67e
+            userDataFile.write("\"" + item["Seller"]["UserID"] + "\"|" + item["Seller"]["Rating"] + "|\"" + item["Location"] + "\"|\"" + item["Country"] + "\"\n")
 
 """
 Loops through each json files provided on the command line and passes each file
