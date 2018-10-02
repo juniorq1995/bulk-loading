@@ -76,8 +76,8 @@ of the necessary SQL tables for your database.
 def parseJson(json_file):
     with open(json_file, 'r') as f:
         items = loads(f.read())['Items'] # creates a Python dictionary of Items for the supplied json file
-        categoryDataFile = open("Category.dat","w")
-        itemDataFile = open("Item.dat","w")
+        categoryDataFile = open("Category.dat","a")
+        itemDataFile = open("Item.txt","a")
 
         for item in items:
             description = "NULL"
