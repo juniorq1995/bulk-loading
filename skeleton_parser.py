@@ -78,23 +78,27 @@ def parseJson(json_file):
         items = loads(f.read())['Items'] # creates a Python dictionary of Items for the supplied json file
         categoryDataFile = open("Category.dat","a")
         itemDataFile = open("Item.txt","a")
+        bidsDataFile = open("Bids.txt", "a")
 
         for item in items:
-            description = "NULL"
-            if item['Description'] != None:
-                description = item['Description']
-            itemDataFile.write(item['ItemID'] + "|" + item['Seller']['UserID'] + "|" + item['Currently'] + "|" + item['First_Bid'] + "|" + item['Number_of_Bids'] + "|" + item['Location'] + "|" + item['Country'] + "|" + item['Started'] + "|" + item['Ends'] + "|" + description + "\n") # item["Started"] + "|" + item["Ends"] + "|" + item["Description"])
-            for category in item['Category']:
-                #write to file using same format
-                categoryDataFile.write(category + "|" + item["ItemID"]+ "\n")
-                pass
-                
+            # description = "NULL"
+            # if item['Description'] != None:
+            #     description = item['Description']
+            # itemDataFile.write(item['ItemID'] + "|" + item['Seller']['UserID'] + "|" + item['Currently'] + "|" + item['First_Bid'] + "|" + item['Number_of_Bids'] + "|" + item['Location'] + "|" + item['Country'] + "|" + item['Started'] + "|" + item['Ends'] + "|" + description + "\n") # item["Started"] + "|" + item["Ends"] + "|" + item["Description"])
+            # for category in item['Category']:
+            #     #write to file using same format
+            #     categoryDataFile.write(category + "|" + item["ItemID"]+ "\n")
+            #     pass
+
+            if item["Bids"] != None:
+                for bid in item["Bids"]:
+                    bidsDataFile.write(bid["Bid"]["Bidder"]["UserID"] + "|" + item["ItemID"] + "|" + bid["Bid"]["Amount"] + "|" + bid["Bid"]["Time"])
+
             """
             TODO: traverse the items dictionary to extract information from the
             given `json_file' and generate the necessary .dat files to generate
             the SQL tables based on your relation design
             """
-            pass
 
 """
 Loops through each json files provided on the command line and passes each file
