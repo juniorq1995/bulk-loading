@@ -76,26 +76,40 @@ of the necessary SQL tables for your database.
 def parseJson(json_file):
     with open(json_file, 'r') as f:
         items = loads(f.read())['Items'] # creates a Python dictionary of Items for the supplied json file
-        categoryDataFile = open("Category.dat","a")
-        itemDataFile = open("Item.txt","a")
-        bidsDataFile = open("Bids.txt", "a")
-        userDataFile = open("Users.txt", "a")
+        # categoryDataFile = open("Category.dat","a")
+        # itemDataFile = open("Item.txt","a")
+        # bidsDataFile = open("Bids.txt", "a")
+        # userDataFile = open("Users.txt", "a")
 
         for item in items:
+            """
+            Create Item table
+            """
             # description = "NULL"
             # if item['Description'] != None:
             #     description = item['Description']
-            # itemDataFile.write(item['ItemID'] + "|" + item['Seller']['UserID'] + "|" + item['Currently'] + "|" + item['First_Bid'] + "|" + item['Number_of_Bids'] + "|" + item['Location'] + "|" + item['Country'] + "|" + item['Started'] + "|" + item['Ends'] + "|" + description + "\n") # item["Started"] + "|" + item["Ends"] + "|" + item["Description"])
+            # itemDataFile.write(item['ItemID'] + "|" + item['Seller']['UserID'] + "|" + item['Currently'] + "|" + item['First_Bid'] + "|" + item['Number_of_Bids'] + "|" + item['Location'] + "|" + item['Country'] + "|" + item['Started'] + "|" + item['Ends'] + "|" + description + "\n")
+
+            """
+            Create Categories table
+            """
+            # Create Categories table
             # for category in item['Category']:
             #     #write to file using same format
             #     categoryDataFile.write(category + "|" + item["ItemID"]+ "\n")
             #     pass
 
+            """
+            Create Bids and Users tables
+            """
             if item["Bids"] != None:
                 for bid in item["Bids"]:
                     bidsDataFile.write(bid["Bid"]["Bidder"]["UserID"] + "|" + item["ItemID"] + "|" + transformDollar(bid["Bid"]["Amount"]) + "|" + transformDttm(bid["Bid"]["Time"]) + "\n")
                     userDataFile.write(bid["Bid"]["Bidder"]["UserID"] + "|" + bid["Bid"]["Bidder"]["Rating"] + "|" + bid["Bid"]["Bidder"]["Location"] + "|" + bid["Bid"]["Bidder"]["Country"] + "\n")
 
+            """
+            Finish Users table
+            """
             userDataFile.write(item["Seller"]["UserID"] + "|" + item["Seller"]["Rating"] + "\n")
 
             """
