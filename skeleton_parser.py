@@ -85,10 +85,8 @@ def parseJson(json_file):
             """
             Create Item table
             """
-            # description = "NULL"
-            # if item['Description'] != None:
-            #     description = item['Description']
-            # itemDataFile.write(item['ItemID'] + "|" + item['Seller']['UserID'] + "|" + item['Currently'] + "|" + item['First_Bid'] + "|" + item['Number_of_Bids'] + "|" + item['Location'] + "|" + item['Country'] + "|" + item['Started'] + "|" + item['Ends'] + "|" + description + "\n")
+          
+            # itemDataFile.write("\"" + re.sub("\"","\"\"",item['ItemID']) + "\"|\"" + re.sub("\"","\"\"",item['Seller']['UserID']) + "\"|\"" + re.sub("\"","\"\"",transformDollar(item['Currently'])) + "\"|\"" + re.sub("\"","\"\"",transformDollar(item['First_Bid'])) + "\"|" + re.sub("\"","\"\"",item['Number_of_Bids']) + "|\"" + re.sub("\"","\"\"",item['Location']) + "\"|\"" + re.sub("\"","\"\"",item['Country']) + "\"|\"" + re.sub("\"","\"\"",transformDttm(item['Started'])) + "\"|\"" + re.sub("\"","\"\"",transformDttm(item['Ends'])) + "\"|\"" + re.sub("\"","\"\"",item.get("Description","NULL")) + "\"\n")
 
             """
             Create Categories table
@@ -96,7 +94,7 @@ def parseJson(json_file):
             # Create Categories table
             # for category in item['Category']:
             #     #write to file using same format
-            #     categoryDataFile.write(category + "|" + item["ItemID"]+ "\n")
+            #     categoryDataFile.write("\"" + re.sub("\"","\"\"",category) + "\"|\"" + re.sub("\"","\"\"",item["ItemID"]) + "\"\n")
             #     pass
 
             """
@@ -104,22 +102,13 @@ def parseJson(json_file):
             """
             if item["Bids"] != None:
                 for bid in item["Bids"]:
-                    country = "NULL"
-                    if bid["Bid"]["Bidder"]["Country"] != None:
-                        country = bid["Bid"]["Bidder"]["Country"]
-                    bidsDataFile.write(bid["Bid"]["Bidder"]["UserID"] + "|" + item["ItemID"] + "|" + transformDollar(bid["Bid"]["Amount"]) + "|" + transformDttm(bid["Bid"]["Time"]) + "\n")
-                    userDataFile.write(bid["Bid"]["Bidder"]["UserID"] + "|" + bid["Bid"]["Bidder"]["Rating"] + "|" + bid["Bid"]["Bidder"]["Location"] + "|" + country + "\n")
+                    bidsDataFile.write("\"" + re.sub("\"","\"\"",bid["Bid"]["Bidder"]["UserID"]) + "\"|\"" + re.sub("\"","\"\"",item["ItemID"]) + "\"|\"" + re.sub("\"","\"\"",transformDollar(bid["Bid"]["Amount"])) + "\"|\"" + re.sub("\"","\"\"",transformDttm(bid["Bid"]["Time"])) + "\"\n")
+                    userDataFile.write("\"" + re.sub("\"","\"\"",bid["Bid"]["Bidder"]["UserID"]) + "\"|" + re.sub("\"","\"\"",bid["Bid"]["Bidder"]["Rating"]) + "|\"" + re.sub("\"","\"\"",bid["Bid"]["Bidder"].get("Location", "NULL")) + "\"|\"" + re.sub("\"","\"\"",bid["Bid"]["Bidder"].get("Country", "NULL")) + "\"\n")
 
             """
             Finish Users table
             """
-            userDataFile.write(item["Seller"]["UserID"] + "|" + item["Seller"]["Rating"] + "\n")
-
-            """
-            TODO: traverse the items dictionary to extract information from the
-            given `json_file' and generate the necessary .dat files to generate
-            the SQL tables based on your relation design
-            """
+            userDataFile.write("\"" + re.sub("\"","\"\"",item["Seller"]["UserID"]) + "\"|" + re.sub("\"","\"\"",item["Seller"]["Rating"]) + "|\"" + re.sub("\"","\"\"",item["Location"]) + "\"|\"" + re.sub("\"","\"\"",item["Country"]) + "\"\n")
 
 """
 Loops through each json files provided on the command line and passes each file
