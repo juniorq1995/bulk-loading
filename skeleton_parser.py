@@ -82,6 +82,13 @@ def parseJson(json_file):
             given `json_file' and generate the necessary .dat files to generate
             the SQL tables based on your relation design
             """
+        import json
+            from pprint import pprint
+
+            with open('data.json') as f:
+                data = json.load(f)
+
+                pprint(data)
             pass
 
 """
