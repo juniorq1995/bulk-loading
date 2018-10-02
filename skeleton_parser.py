@@ -91,12 +91,12 @@ def parseJson(json_file):
             #     categoryDataFile.write(category + "|" + item["ItemID"]+ "\n")
             #     pass
 
-            # if item["Bids"] != None:
-            #     for bid in item["Bids"]:
-            #         bidsDataFile.write(bid["Bid"]["Bidder"]["UserID"] + "|" + item["ItemID"] + "|" + bid["Bid"]["Amount"] + "|" + bid["Bid"]["Time"] + "\n")
-            #         userDataFile.write(bid["Bid"]["Bidder"]["UserID"] + "|" + bid["Bid"]["Bidder"]["Rating"] + "|" + bid["Bid"]["Bidder"]["Location"] + "|" + bid["Bid"]["Bidder"]["Country"] + "\n")
-            #
-            # userDataFile.write(item["Seller"]["UserID"] + "|" + item["Seller"]["Rating"] + "\n")
+            if item["Bids"] != None:
+                for bid in item["Bids"]:
+                    bidsDataFile.write(bid["Bid"]["Bidder"]["UserID"] + "|" + item["ItemID"] + "|" + transformDollar(bid["Bid"]["Amount"]) + "|" + transformDttm(bid["Bid"]["Time"]) + "\n")
+                    userDataFile.write(bid["Bid"]["Bidder"]["UserID"] + "|" + bid["Bid"]["Bidder"]["Rating"] + "|" + bid["Bid"]["Bidder"]["Location"] + "|" + bid["Bid"]["Bidder"]["Country"] + "\n")
+
+            userDataFile.write(item["Seller"]["UserID"] + "|" + item["Seller"]["Rating"] + "\n")
 
             """
             TODO: traverse the items dictionary to extract information from the
