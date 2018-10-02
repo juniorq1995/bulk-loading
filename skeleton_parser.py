@@ -78,8 +78,8 @@ def parseJson(json_file):
         items = loads(f.read())['Items'] # creates a Python dictionary of Items for the supplied json file
         # categoryDataFile = open("Category.dat","a")
         # itemDataFile = open("Item.txt","a")
-        # bidsDataFile = open("Bids.txt", "a")
-        # userDataFile = open("Users.txt", "a")
+        bidsDataFile = open("Bids.txt", "a")
+        userDataFile = open("Users.txt", "a")
 
         for item in items:
             """
@@ -104,8 +104,11 @@ def parseJson(json_file):
             """
             if item["Bids"] != None:
                 for bid in item["Bids"]:
+                    country = "NULL"
+                    if bid["Bid"]["Bidder"]["Country"] != None:
+                        country = bid["Bid"]["Bidder"]["Country"]
                     bidsDataFile.write(bid["Bid"]["Bidder"]["UserID"] + "|" + item["ItemID"] + "|" + transformDollar(bid["Bid"]["Amount"]) + "|" + transformDttm(bid["Bid"]["Time"]) + "\n")
-                    userDataFile.write(bid["Bid"]["Bidder"]["UserID"] + "|" + bid["Bid"]["Bidder"]["Rating"] + "|" + bid["Bid"]["Bidder"]["Location"] + "|" + bid["Bid"]["Bidder"]["Country"] + "\n")
+                    userDataFile.write(bid["Bid"]["Bidder"]["UserID"] + "|" + bid["Bid"]["Bidder"]["Rating"] + "|" + bid["Bid"]["Bidder"]["Location"] + "|" + country + "\n")
 
             """
             Finish Users table
