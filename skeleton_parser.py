@@ -104,7 +104,6 @@ def parseJson(json_file):
             """
             if item["Bids"] != None:
                 for bid in item["Bids"]:
-                    if bid["Bid"]["Bidder"]["Country"] != None:
                     bidsDataFile.write("\"" + bid["Bid"]["Bidder"]["UserID"] + "\"|\"" + item["ItemID"] + "\"|\"" + transformDollar(bid["Bid"]["Amount"]) + "\"|\"" + transformDttm(bid["Bid"]["Time"]) + "\"\n")
                     userDataFile.write("\"" + bid["Bid"]["Bidder"]["UserID"] + "\"|" + bid["Bid"]["Bidder"]["Rating"] + "|\"" + bid["Bid"]["Bidder"].get("Location", "NULL") + "\"|\"" + bid["Bid"]["Bidder"].get("Country", "NULL") + "\"\n")
 
