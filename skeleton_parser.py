@@ -86,7 +86,7 @@ def parseJson(json_file):
             """
             Create Item table
             """
-          
+
             itemDataFile.write("\"" + item['ItemID'] + "\"|\"" + re.sub("\"","\"\"",item['Seller']['UserID']) + "\"|\"" + re.sub("\"","\"\"",transformDollar(item['Currently'])) + "\"|\"" + re.sub("\"","\"\"",transformDollar(item['First_Bid'])) + "\"|" + item['Number_of_Bids'] + "|\"" + re.sub("\"","\"\"",item['Location']) + "\"|\"" + re.sub("\"","\"\"",item['Country']) + "\"|\"" + re.sub("\"","\"\"",transformDttm(item['Started'])) + "\"|\"" + re.sub("\"","\"\"",transformDttm(item['Ends'])) + "\"|\"" + re.sub("\"","\"\"",item.get("Description","NULL")) + "\"\n")
 
             """
@@ -102,9 +102,17 @@ def parseJson(json_file):
             Create Bids and Users tables
             """
             if item["Bids"] != None:
+                location = "NULL"
+                country = "NULL"
                 for bid in item["Bids"]:
+                    if (bid["Bid"]["Bidder"].get("Location") != None):
+                        location = bid["Bid"]["Bidder"].get("Location")
+
+                    if (bid["Bid"]["Bidder"].get("Location") != None):
+                        country = bid["Bid"]["Bidder"].get("Location")
+
                     bidsDataFile.write("\"" + re.sub("\"","\"\"",bid["Bid"]["Bidder"]["UserID"]) + "\"|\"" + re.sub("\"","\"\"",item["ItemID"]) + "\"|\"" + re.sub("\"","\"\"",transformDollar(bid["Bid"]["Amount"])) + "\"|\"" + re.sub("\"","\"\"",transformDttm(bid["Bid"]["Time"])) + "\"\n")
-                    userDataFile.write("\"" + re.sub("\"","\"\"",bid["Bid"]["Bidder"]["UserID"]) + "\"|" + bid["Bid"]["Bidder"]["Rating"] + "|\"" + re.sub("\"","\"\"",bid["Bid"]["Bidder"].get("Location", "NULL")) + "\"|\"" + re.sub("\"","\"\"",bid["Bid"]["Bidder"].get("Country", "NULL")) + "\"\n")
+                    userDataFile.write("\"" + re.sub("\"","\"\"",bid["Bid"]["Bidder"]["UserID"]) + "\"|" + bid["Bid"]["Bidder"]["Rating"] + "|\"" + re.sub("\"","\"\"",location) + "\"|\"" + re.sub("\"","\"\"",country) + "\"\n")
                     pass
             """
             Finish Users table
