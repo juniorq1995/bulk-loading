@@ -27,6 +27,7 @@ Happy parsing!
 import sys
 from json import loads
 from re import sub
+import re
 
 columnSeparator = "|"
 
@@ -76,26 +77,26 @@ of the necessary SQL tables for your database.
 def parseJson(json_file):
     with open(json_file, 'r') as f:
         items = loads(f.read())['Items'] # creates a Python dictionary of Items for the supplied json file
-        # categoryDataFile = open("Category.dat","a")
-        # itemDataFile = open("Item.txt","a")
-        bidsDataFile = open("Bids.txt", "a")
-        userDataFile = open("Users.txt", "a")
+        categoryDataFile = open("Category.dat","a")
+        itemDataFile = open("Item.dat","a")
+        bidsDataFile = open("Bids.dat", "a")
+        userDataFile = open("Users.dat", "a")
 
         for item in items:
             """
             Create Item table
             """
           
-            # itemDataFile.write("\"" + re.sub("\"","\"\"",item['ItemID']) + "\"|\"" + re.sub("\"","\"\"",item['Seller']['UserID']) + "\"|\"" + re.sub("\"","\"\"",transformDollar(item['Currently'])) + "\"|\"" + re.sub("\"","\"\"",transformDollar(item['First_Bid'])) + "\"|" + re.sub("\"","\"\"",item['Number_of_Bids']) + "|\"" + re.sub("\"","\"\"",item['Location']) + "\"|\"" + re.sub("\"","\"\"",item['Country']) + "\"|\"" + re.sub("\"","\"\"",transformDttm(item['Started'])) + "\"|\"" + re.sub("\"","\"\"",transformDttm(item['Ends'])) + "\"|\"" + re.sub("\"","\"\"",item.get("Description","NULL")) + "\"\n")
+            itemDataFile.write("\"" + item['ItemID'] + "\"|\"" + re.sub("\"","\"\"",item['Seller']['UserID']) + "\"|\"" + re.sub("\"","\"\"",transformDollar(item['Currently'])) + "\"|\"" + re.sub("\"","\"\"",transformDollar(item['First_Bid'])) + "\"|" + item['Number_of_Bids'] + "|\"" + re.sub("\"","\"\"",item['Location']) + "\"|\"" + re.sub("\"","\"\"",item['Country']) + "\"|\"" + re.sub("\"","\"\"",transformDttm(item['Started'])) + "\"|\"" + re.sub("\"","\"\"",transformDttm(item['Ends'])) + "\"|\"" + re.sub("\"","\"\"",item.get("Description","NULL")) + "\"\n")
 
             """
             Create Categories table
             """
             # Create Categories table
-            # for category in item['Category']:
-            #     #write to file using same format
-            #     categoryDataFile.write("\"" + re.sub("\"","\"\"",category) + "\"|\"" + re.sub("\"","\"\"",item["ItemID"]) + "\"\n")
-            #     pass
+            for category in item['Category']:
+                 #write to file using same format
+                categoryDataFile.write("\"" + re.sub("\"","\"\"",category) + "\"|\"" + item["ItemID"] + "\"\n")
+                pass
 
             """
             Create Bids and Users tables
@@ -103,12 +104,12 @@ def parseJson(json_file):
             if item["Bids"] != None:
                 for bid in item["Bids"]:
                     bidsDataFile.write("\"" + re.sub("\"","\"\"",bid["Bid"]["Bidder"]["UserID"]) + "\"|\"" + re.sub("\"","\"\"",item["ItemID"]) + "\"|\"" + re.sub("\"","\"\"",transformDollar(bid["Bid"]["Amount"])) + "\"|\"" + re.sub("\"","\"\"",transformDttm(bid["Bid"]["Time"])) + "\"\n")
-                    userDataFile.write("\"" + re.sub("\"","\"\"",bid["Bid"]["Bidder"]["UserID"]) + "\"|" + re.sub("\"","\"\"",bid["Bid"]["Bidder"]["Rating"]) + "|\"" + re.sub("\"","\"\"",bid["Bid"]["Bidder"].get("Location", "NULL")) + "\"|\"" + re.sub("\"","\"\"",bid["Bid"]["Bidder"].get("Country", "NULL")) + "\"\n")
-
+                    userDataFile.write("\"" + re.sub("\"","\"\"",bid["Bid"]["Bidder"]["UserID"]) + "\"|" + bid["Bid"]["Bidder"]["Rating"] + "|\"" + re.sub("\"","\"\"",bid["Bid"]["Bidder"].get("Location", "NULL")) + "\"|\"" + re.sub("\"","\"\"",bid["Bid"]["Bidder"].get("Country", "NULL")) + "\"\n")
+                    pass
             """
             Finish Users table
             """
-            userDataFile.write("\"" + re.sub("\"","\"\"",item["Seller"]["UserID"]) + "\"|" + re.sub("\"","\"\"",item["Seller"]["Rating"]) + "|\"" + re.sub("\"","\"\"",item["Location"]) + "\"|\"" + re.sub("\"","\"\"",item["Country"]) + "\"\n")
+            userDataFile.write("\"" + re.sub("\"","\"\"",item["Seller"]["UserID"]) + "\"|" + item["Seller"]["Rating"] + "|\"" + re.sub("\"","\"\"",item["Location"]) + "\"|\"" + re.sub("\"","\"\"",item["Country"]) + "\"\n")
 
 """
 Loops through each json files provided on the command line and passes each file
