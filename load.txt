@@ -1,0 +1,3 @@
+.separator |
+    .import items.dat Items
+    update Name set middle_name = null where middle_name = ‘NULL’;

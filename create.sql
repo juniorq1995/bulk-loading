@@ -1,0 +1,6 @@
+drop table if exists Item;
+    drop table if exists AuctionUser;
+    ...
+    create table Item ( .... );
+    create table AuctionUser ( ... );
+    ...
