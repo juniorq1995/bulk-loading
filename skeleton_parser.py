@@ -80,14 +80,15 @@ def parseJson(json_file):
         itemDataFile = open("Item.dat","a")
         bidsDataFile = open("Bids.dat", "a")
         userDataFile = open("Users.dat", "a")
-
+        count = 0
         for item in items:
             """
             Create Item table
             """
-          
-            itemDataFile.write("\"" + item['ItemID'] + "\"|\"" + sub("\"","\"\"",item['Seller']['UserID']) + "\"|\"" + sub("\"","\"\"",transformDollar(item['Currently'])) + "\"|\"" + sub("\"","\"\"",transformDollar(item['First_Bid'])) + "\"|" + item['Number_of_Bids'] + "|\"" + sub("\"","\"\"",item['Location']) + "\"|\"" + sub("\"","\"\"",item['Country']) + "\"|\"" + sub("\"","\"\"",transformDttm(item['Started'])) + "\"|\"" + sub("\"","\"\"",transformDttm(item['Ends'])) + "\"|\"" + sub("\"","\"\"",item.get("Description","NULL")) + "\"\n")
-
+            description = "NULL"
+            if item["Description"] != None:
+                description = item["Description"]
+            itemDataFile.write("\"" + item['ItemID'] + "\"|\"" + sub("\"","\"\"",item['Seller']['UserID']) + "\"|\"" + sub("\"","\"\"",transformDollar(item['Currently'])) + "\"|\"" + sub("\"","\"\"",transformDollar(item['First_Bid'])) + "\"|" + item['Number_of_Bids'] + "|\"" + sub("\"","\"\"",item['Location']) + "\"|\"" + sub("\"","\"\"",item['Country']) + "\"|\"" + sub("\"","\"\"",transformDttm(item['Started'])) + "\"|\"" + sub("\"","\"\"",transformDttm(item['Ends'])) + "\"|\"" + sub("\"","\"\"",description) + "\"\n")
             """
             Create Categories table
             """
@@ -104,12 +105,10 @@ def parseJson(json_file):
                 for bid in item["Bids"]:
                     bidsDataFile.write("\"" + sub("\"","\"\"",bid["Bid"]["Bidder"]["UserID"]) + "\"|\"" + sub("\"","\"\"",item["ItemID"]) + "\"|\"" + sub("\"","\"\"",transformDollar(bid["Bid"]["Amount"])) + "\"|\"" + sub("\"","\"\"",transformDttm(bid["Bid"]["Time"])) + "\"\n")
                     userDataFile.write("\"" + sub("\"","\"\"",bid["Bid"]["Bidder"]["UserID"]) + "\"|" + bid["Bid"]["Bidder"]["Rating"] + "|\"" + sub("\"","\"\"",bid["Bid"]["Bidder"].get("Location", "NULL")) + "\"|\"" + sub("\"","\"\"",bid["Bid"]["Bidder"].get("Country", "NULL")) + "\"\n")
-                    pass
             """
             Finish Users table
             """
             userDataFile.write("\"" + sub("\"","\"\"",item["Seller"]["UserID"]) + "\"|" + item["Seller"]["Rating"] + "|\"" + sub("\"","\"\"",item["Location"]) + "\"|\"" + sub("\"","\"\"",item["Country"]) + "\"\n")
-
 """
 Loops through each json files provided on the command line and passes each file
 to the parser
