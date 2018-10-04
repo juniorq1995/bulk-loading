@@ -1,3 +1,8 @@
-.separator |
-    .import items.dat Items
-    update Name set middle_name = null where middle_name = ‘NULL’;
+﻿.separator |
+.import Item.dat Items
+.import Category.dat Categories
+.import Bids.dat Bids
+.import Users.dat Users
+Update Users set Location = null where Location = 'NULL';
+Update Users set Country = null where Country = 'NULL';
+Update Items set Description = null where Description = 'NULL';
