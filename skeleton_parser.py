@@ -27,6 +27,7 @@ Happy parsing!
 import sys
 from json import loads
 from re import sub
+import os
 
 columnSeparator = "|"
 
@@ -76,6 +77,13 @@ of the necessary SQL tables for your database.
 def parseJson(json_file):
     with open(json_file, 'r') as f:
         items = loads(f.read())['Items'] # creates a Python dictionary of Items for the supplied json file
+        try:
+            os.remove("Category.dat")
+            os.remove("Item.dat")
+            os.remove("Bids.dat")
+            os.remove("Users.dat")
+        except OSError:
+            pass
         categoryDataFile = open("Category.dat","a")
         itemDataFile = open("Item.dat","a")
         bidsDataFile = open("Bids.dat", "a")
