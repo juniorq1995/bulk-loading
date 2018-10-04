@@ -2,7 +2,7 @@ drop table if exists Item;
 drop table if exists Users;
 drop table if exists Category;
 drop table if exists Bids;
-create table Item (
+create table Items (
   ItemID int,
   UserID varchar(255),
   Name varchar(255),
@@ -21,7 +21,7 @@ create table Users (
   Location varchar(255),
   Country varchar(255)
 );
-create table Category (
+create table Categories (
   Category varchar(255),
   ItemID int
 );
