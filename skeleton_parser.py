@@ -89,10 +89,7 @@ def parseJson(json_file):
             if item["Description"] != None:
                 description = item["Description"]
             itemDataFile.write("\"" + item['ItemID'] + "\"|\"" + sub("\"","\"\"",item['Seller']['UserID']) + "\"|\"" + sub("\"","\"\"",transformDollar(item['Currently'])) + "\"|\"" + sub("\"","\"\"",transformDollar(item['First_Bid'])) + "\"|" + item['Number_of_Bids'] + "|\"" + sub("\"","\"\"",item['Location']) + "\"|\"" + sub("\"","\"\"",item['Country']) + "\"|\"" + sub("\"","\"\"",transformDttm(item['Started'])) + "\"|\"" + sub("\"","\"\"",transformDttm(item['Ends'])) + "\"|\"" + sub("\"","\"\"",description) + "\"\n")
-<<<<<<< HEAD
-=======
 
->>>>>>> ee9001d938dcf46570bea49cc44a8d11259e4602
             """
             Create Categories table
             """
