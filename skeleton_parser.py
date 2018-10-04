@@ -85,16 +85,11 @@ def parseJson(json_file):
             """
             Create Item table
             """
-<<<<<<< HEAD
-
-            itemDataFile.write("\"" + item['ItemID'] + "\"|\"" + re.sub("\"","\"\"",item['Seller']['UserID']) + "\"|\"" + re.sub("\"","\"\"",transformDollar(item['Currently'])) + "\"|\"" + re.sub("\"","\"\"",transformDollar(item['First_Bid'])) + "\"|" + item['Number_of_Bids'] + "|\"" + re.sub("\"","\"\"",item['Location']) + "\"|\"" + re.sub("\"","\"\"",item['Country']) + "\"|\"" + re.sub("\"","\"\"",transformDttm(item['Started'])) + "\"|\"" + re.sub("\"","\"\"",transformDttm(item['Ends'])) + "\"|\"" + re.sub("\"","\"\"",item.get("Description","NULL")) + "\"\n")
-
-=======
             description = "NULL"
             if item["Description"] != None:
                 description = item["Description"]
             itemDataFile.write("\"" + item['ItemID'] + "\"|\"" + sub("\"","\"\"",item['Seller']['UserID']) + "\"|\"" + sub("\"","\"\"",transformDollar(item['Currently'])) + "\"|\"" + sub("\"","\"\"",transformDollar(item['First_Bid'])) + "\"|" + item['Number_of_Bids'] + "|\"" + sub("\"","\"\"",item['Location']) + "\"|\"" + sub("\"","\"\"",item['Country']) + "\"|\"" + sub("\"","\"\"",transformDttm(item['Started'])) + "\"|\"" + sub("\"","\"\"",transformDttm(item['Ends'])) + "\"|\"" + sub("\"","\"\"",description) + "\"\n")
->>>>>>> 3b60bdbe87390b679d491e6f8079841dd56567cc
+
             """
             Create Categories table
             """
@@ -111,20 +106,15 @@ def parseJson(json_file):
                 location = "NULL"
                 country = "NULL"
                 for bid in item["Bids"]:
-<<<<<<< HEAD
                     if (bid["Bid"]["Bidder"].get("Location") != None):
                         location = bid["Bid"]["Bidder"].get("Location")
 
                     if (bid["Bid"]["Bidder"].get("Location") != None):
                         country = bid["Bid"]["Bidder"].get("Location")
 
-                    bidsDataFile.write("\"" + re.sub("\"","\"\"",bid["Bid"]["Bidder"]["UserID"]) + "\"|\"" + re.sub("\"","\"\"",item["ItemID"]) + "\"|\"" + re.sub("\"","\"\"",transformDollar(bid["Bid"]["Amount"])) + "\"|\"" + re.sub("\"","\"\"",transformDttm(bid["Bid"]["Time"])) + "\"\n")
-                    userDataFile.write("\"" + re.sub("\"","\"\"",bid["Bid"]["Bidder"]["UserID"]) + "\"|" + bid["Bid"]["Bidder"]["Rating"] + "|\"" + re.sub("\"","\"\"",location) + "\"|\"" + re.sub("\"","\"\"",country) + "\"\n")
-                    pass
-=======
                     bidsDataFile.write("\"" + sub("\"","\"\"",bid["Bid"]["Bidder"]["UserID"]) + "\"|\"" + sub("\"","\"\"",item["ItemID"]) + "\"|\"" + sub("\"","\"\"",transformDollar(bid["Bid"]["Amount"])) + "\"|\"" + sub("\"","\"\"",transformDttm(bid["Bid"]["Time"])) + "\"\n")
-                    userDataFile.write("\"" + sub("\"","\"\"",bid["Bid"]["Bidder"]["UserID"]) + "\"|" + bid["Bid"]["Bidder"]["Rating"] + "|\"" + sub("\"","\"\"",bid["Bid"]["Bidder"].get("Location", "NULL")) + "\"|\"" + sub("\"","\"\"",bid["Bid"]["Bidder"].get("Country", "NULL")) + "\"\n")
->>>>>>> 3b60bdbe87390b679d491e6f8079841dd56567cc
+                    userDataFile.write("\"" + sub("\"","\"\"",bid["Bid"]["Bidder"]["UserID"]) + "\"|" + bid["Bid"]["Bidder"]["Rating"] + "|\"" + sub("\"","\"\"",location) + "\"|\"" + sub("\"","\"\"",country) + "\"\n")
+                    pass
             """
             Finish Users table
             """
