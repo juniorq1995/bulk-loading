@@ -13,21 +13,17 @@ create table Items (
   Country varchar(255),
   Start varchar(255),
   End varchar(255),
-  Description varchar(255)
 );
 create table Users (
   UserID varchar(255),
   Rating int,
   Location varchar(255),
-  Country varchar(255)
 );
 create table Categories (
   Category varchar(255),
-  ItemID int
 );
 create table Bids (
   UserID varchar(255),
   ItemID int,
   Amount varchar(255),
-  Time varchar(255)
 );

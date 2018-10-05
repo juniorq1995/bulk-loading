@@ -1,0 +1,4 @@
+SELECT COUNT(*)
+FROM Categories
+GROUP BY ItemID
+HAVING COUNT(*) == 4;

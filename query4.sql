@@ -1,0 +1,3 @@
+SELECT ItemID
+FROM Items
+WHERE Currently IN (SELECT MAX(CURRENTLY) FROM Items);
