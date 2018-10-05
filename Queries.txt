@@ -1,22 +1,23 @@
 1.
 
-SELECT COUNT(*)
-FROM Users U
-GROUP BY U.UserID;
+SELECT COUNT(DISTINCT UserID)
+FROM Users U;
 
 2.
 
-SELECT COUNT(*)
+SELECT COUNT(DISTINCT UserID)
 FROM Users U
-GROUP BY U.UserID
-HAVING U.Location == "New York";
+WHERE U.Location == "New York";
 
 3.
+WITH temp AS (
+   SELECT COUNT(ItemID)
+   FROM Categories
+   GROUP BY ItemID
+   HAVING COUNT(*) == 4)
 
 SELECT COUNT(*)
-FROM Categories
-GROUP BY ItemID
-HAVING COUNT(*) == 4;
+FROM temp;
 
 4.
 
