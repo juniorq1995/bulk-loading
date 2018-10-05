@@ -1,4 +1,3 @@
-SELECT COUNT(*)
+SELECT COUNT(DISTINCT UserID)
 FROM Users U
-GROUP BY U.UserID
-HAVING U.Location == "New York";
+WHERE U.Location == "New York";

@@ -1,3 +1,2 @@
-SELECT Count(*)
-FROM Users U
-GROUP BY U.UserID;
+SELECT COUNT(DISTINCT UserID)
+FROM Users U;
