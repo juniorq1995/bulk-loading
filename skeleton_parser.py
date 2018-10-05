@@ -77,15 +77,18 @@ of the necessary SQL tables for your database.
 def parseJson(json_file):
     with open(json_file, 'r') as f:
         items = loads(f.read())['Items'] # creates a Python dictionary of Items for the supplied json'!git file
+        # open files to hold each tables data
         categoryDataFile = open("Categories.dat","a")
         itemDataFile = open("Items.dat","a")
         bidsDataFile = open("Bids.dat", "a")
         userDataFile = open("Users.dat", "a")
-        count = 0
+
+        # iterate through all JSON objects
         for item in items:
             """
             Create Item table
             """
+            # Check if description value is empty, if not fill var with value
             description = "NULL"
             if item["Description"] != None:
                 description = item["Description"]
@@ -106,19 +109,21 @@ def parseJson(json_file):
             if item["Bids"] != None:
                 location = "NULL"
                 country = "NULL"
+                # Check if a bid's location and country is empty, if not then fill vars with values
                 for bid in item["Bids"]:
                     if (bid["Bid"]["Bidder"].get("Location") != None):
                         location = bid["Bid"]["Bidder"].get("Location")
 
                     if (bid["Bid"]["Bidder"].get("Location") != None):
                         country = bid["Bid"]["Bidder"].get("Location")
-
+                    # Write data to respective files
                     bidsDataFile.write("\"" + sub("\"","\"\"",bid["Bid"]["Bidder"]["UserID"]) + "\"|\"" + sub("\"","\"\"",item["ItemID"]) + "\"|\"" + sub("\"","\"\"",transformDollar(bid["Bid"]["Amount"])) + "\"|\"" + sub("\"","\"\"",transformDttm(bid["Bid"]["Time"])) + "\"\n")
                     userDataFile.write("\"" + sub("\"","\"\"",bid["Bid"]["Bidder"]["UserID"]) + "\"|" + bid["Bid"]["Bidder"]["Rating"] + "|\"" + sub("\"","\"\"",location) + "\"|\"" + sub("\"","\"\"",country) + "\"\n")
                     pass
             """
             Finish Users table
             """
+            # Write data to Users table file
             userDataFile.write("\"" + sub("\"","\"\"",item["Seller"]["UserID"]) + "\"|" + item["Seller"]["Rating"] + "|\"" + sub("\"","\"\"",item["Location"]) + "\"|\"" + sub("\"","\"\"",item["Country"]) + "\"\n")
 """
 Loops through each json files provided on the command line and passes each file
