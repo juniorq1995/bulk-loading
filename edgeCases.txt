@@ -1,2 +1,0 @@
-itemID = 345 # no country
-itemID = 245 #not country & location
