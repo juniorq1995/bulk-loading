@@ -1,6 +1,6 @@
-drop table if exists Item;
+drop table if exists Items;
 drop table if exists Users;
-drop table if exists Category;
+drop table if exists Categories;
 drop table if exists Bids;
 create table Items (
   ItemID int,
