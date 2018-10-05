@@ -77,8 +77,8 @@ of the necessary SQL tables for your database.
 def parseJson(json_file):
     with open(json_file, 'r') as f:
         items = loads(f.read())['Items'] # creates a Python dictionary of Items for the supplied json'!git file
-        categoryDataFile = open("Category.dat","a")
-        itemDataFile = open("Item.dat","a")
+        categoryDataFile = open("Categories.dat","a")
+        itemDataFile = open("Items.dat","a")
         bidsDataFile = open("Bids.dat", "a")
         userDataFile = open("Users.dat", "a")
         count = 0
@@ -89,7 +89,7 @@ def parseJson(json_file):
             description = "NULL"
             if item["Description"] != None:
                 description = item["Description"]
-            itemDataFile.write("\"" + item['ItemID'] + "\"|\"" + sub("\"","\"\"",item['Seller']['UserID']) + "\"|\"" + sub("\"","\"\"",transformDollar(item['Currently'])) + "\"|\"" + sub("\"","\"\"",transformDollar(item['First_Bid'])) + "\"|" + item['Number_of_Bids'] + "|\"" + sub("\"","\"\"",item['Location']) + "\"|\"" + sub("\"","\"\"",item['Country']) + "\"|\"" + sub("\"","\"\"",transformDttm(item['Started'])) + "\"|\"" + sub("\"","\"\"",transformDttm(item['Ends'])) + "\"|\"" + sub("\"","\"\"",description) + "\"\n")
+            itemDataFile.write("\"" + item['ItemID'] + "\"|\"" + sub("\"","\"\"",item['Seller']['UserID']) + "\"|\"" + sub("\"","\"\"",(item['Name'])) + "\"|\"" + sub("\"","\"\"",transformDollar(item['Currently'])) + "\"|\"" + sub("\"","\"\"",transformDollar(item['First_Bid'])) + "\"|" + item['Number_of_Bids'] + "|\"" + sub("\"","\"\"",item['Location']) + "\"|\"" + sub("\"","\"\"",item['Country']) + "\"|\"" + sub("\"","\"\"",transformDttm(item['Started'])) + "\"|\"" + sub("\"","\"\"",transformDttm(item['Ends'])) + "\"|\"" + sub("\"","\"\"",description) + "\"\n")
 
             """
             Create Categories table
