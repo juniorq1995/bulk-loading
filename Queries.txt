@@ -22,8 +22,8 @@ FROM temp;
 4.
 
 SELECT ItemID
-FROM Items
-WHERE Currently IN (SELECT MAX(CURRENTLY) FROM Items);
+   FROM Items
+   HERE CAST(Currently AS DOUBLE) == (SELECT MAX(CAST(Currently AS DOUBLE)) FROM Items);
 
 5.
 
