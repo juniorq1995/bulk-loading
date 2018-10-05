@@ -1,0 +1,46 @@
+1.
+
+SELECT COUNT(DISTINCT UserID)
+FROM Users U;
+
+2.
+
+SELECT COUNT(DISTINCT UserID)
+FROM Users U
+WHERE U.Location == "New York";
+
+3.
+
+SELECT COUNT(*)
+FROM (
+   SELECT ItemID
+   FROM Categories
+   GROUP BY ItemID
+   HAVING COUNT(*) == 4);
+
+4.
+
+SELECT ItemID
+FROM Items
+WHERE CAST(Currently AS DOUBLE) == (SELECT MAX(CAST(Currently AS DOUBLE)) FROM Items);
+
+5.
+
+SELECT COUNT(DISTINCT Users.UserID)
+FROM Users,Items
+WHERE Users.UserID == Items.UserID
+AND Users.Rating > 1000;
+
+6.
+
+SELECT COUNT(DISTINCT Items.UserID)
+FROM Items,Bids
+WHERE Items.UserID == Bids.UserID;
+
+7.
+
+SELECT COUNT(DISTINCT Categories.Category)
+FROM Categories,Bids
+WHERE Categories.ItemID == Bids.ItemID
+AND CAST(Bids.Amount AS DOUBLE) > 100;
+
