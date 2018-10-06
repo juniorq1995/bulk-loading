@@ -26,12 +26,14 @@ create table Users (
 create table Categories (
   Category varchar(255),
   ItemID int,
-  PRIMARY KEY(Category,ItemID)
+  PRIMARY KEY(Category,ItemID),
+  FOREIGN KEY(ItemID) REFERENCES Items(ItemID)
 );
 create table Bids (
   UserID varchar(255),
   ItemID int,
   Amount varchar(255),
   Time varchar(255),
-  PRIMARY KEY(UserID,ItemID,Time)
+  PRIMARY KEY(UserID,ItemID,Time),
+  FOREIGN KEY(ItemID) REFERENCES Items(ItemID)
 );
